@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        section{
+        display: flex
+        }
+        .div{
+            width: 100px;
+
+        }
+    </style>
+</head>
+<body>
+    <section>
+<div class="box">
+    <input type="text" placeholder="Name" name="" id=""> <br> <br>
+    <input type="text" placeholder="Email" name="" id=""><br> <br>
+    <input type="text" placeholder="Pswd" name="" id=""> <br><br> 
+    <input type="text" placeholder="phone" name="" id=""> <br> <br>
+    <input type="text" placeholder="DOB" name="" id=""> <br> <br>
+    <input type="text" placeholder="Address" name="" id=""> <br> <br>
+ <input type="text" placeholder="img" name="" id=""> <br> <br>
+   <select name="" id="" onchange= " console.log(value)">
+    <option value="">Gender</option>
+    <option value="male">male</option>
+    <option value="female">female</option>
+
+</select>
+
+
+    <button onclick=" submitdata()">submit</button>
+    
+</div>
+<div class="box">
+    <h1>abc</h1>
+    <h1>abc@gmail.com</h1>
+    <h1>abc@123</h1>
+    <h1>9876543224</h1>
+    <h1>10/04/1997</h1>
+    <h1>address</h1>
+    
+
+</div>
+    </section>
+    <script>
+  function submitdata(){
+
+    let name =document.getElementsByTagName('input')[0].value 
+    let email =document.getElementsByTagName('input')[1].value
+    let pswd=document.getElementsByTagName('input')[2].value
+    let phones =document.getElementsByTagName('input')[3].value
+    let img =document.getElementsByTagName('input')[4].value
+    let dob =document.getElementsByTagName('input')[5].value
+    let address =document.getElementsByTagName('input')[6].value
+
+     document.getElementsByTagName('h1')[0].innerText = name 
+    document.getElementsByTagName('h1')[1].innerText =email
+    document.getElementsByTagName('h1')[2].innerText = pswd
+    document.getElementsByTagName('h1')[3].innerText = phone
+    document.getElementsByTagName('h1')[4].innerText = dob
+    document.getElementsByTagName('h1')[5].innerText = address
+    document.getElementsByTagName('img')[0].innerText.src=img
+    console.log(name);
+    
+}
+
+    </script>
+</body>
+</html>

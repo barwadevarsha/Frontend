@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        section{
+            display: flex;
+            gap: 20px;
+            border: 2px solid black ;
+            width: 70%;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgb(0, 0, 0);
+            background-color: bisque;
+            
+        }
+        .box2{
+            width: 100px;
+            position: absolute;
+            top: 180px;
+            left: 150px;
+            z-index: +1;
+
+        }
+        .box3{
+            width: 100px;
+            position: relative;
+            top: 100px;
+            left: 100px;
+        }
+        .box4{
+            width: 100px;
+            position: sticky;
+            margin-top: 170px;
+            margin-left: 70px;
+            z-index: -1;
+        }
+        .box5{
+            width: 100px;
+            top: 250px;
+            /* left: 70px; */
+            position: fixed;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="box box1">static</div>
+        <div class="box box2">absolute</div>
+        <div class="box box3">relative</div>
+        <div class="box box4">sticky</div>
+        <div class="box box5">fixed</div>
+    </section>
+</body>
+</html>
