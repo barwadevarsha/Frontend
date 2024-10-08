@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+
+        *:not(i) {
+            font-family: "Poppins", sans-serif;
+        }
+
+
+        body {
+            background-color: #ae9cff;
+        }
+
+
+        .wrapper {
+            width: 92vmin;
+            position: absolute;
+            -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+            top: 50px;
+            left: 50%;
+        }
+
+
+        .container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 80px 50px;
+            border-radius: 10px;
+            -webkit-box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
+            box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
+        }
+
+
+        a {
+            padding: 15px 0;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 5px;
+            color: #1f194c;
+            font-weight: 600;
+            -webkit-box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
+            box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
+            margin-top: 30px;
+        }
+
+
+        .search-box {
+            width: 100%;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+        }
+
+
+        .search-box input {
+            padding: 5px;
+            width: 70%;
+            border: none;
+            outline: none;
+            border-bottom: 3px solid #ae9cff;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+
+        .search-box button {
+            padding: 15px 0;
+            width: 25%;
+            background-color: #ae9cff;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+
+        .result {
+            position: relative;
+        }
+
+
+        .result h3 {
+            font-size: 30px;
+            color: #1f194c;
+        }
+
+
+        .result .word {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+
+        .result button {
+            background-color: transparent;
+            color: #ae9cff;
+            border: none;
+            outline: none;
+            font-size: 18px;
+        }
+
+
+        .result .details {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            gap: 10px;
+            color: #b3b6d4;
+            margin: 5px 0 20px 0;
+            font-size: 14px;
+        }
+
+
+        .word-meaning {
+            color: #575a7b;
+        }
+
+
+        .word-example {
+            color: #575a7b;
+            font-style: italic;
+            border-left: 5px solid #ae9cff;
+            padding-left: 20px;
+            margin-top: 30px;
+            font-size: 16px;
+        }
+
+
+        .error {
+            margin-top: 80px;
+            text-align: center;
+        }
+
+
+        .defination,
+        .Examples {
+            margin: 5px 0px;
+        }
+
+
+        .resultBox {
+            margin-bottom: 15px;
+        }
+
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+
+            .search-box button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <audio id="sound"></audio>
+        <div class="container">
+            <div class="search-box">
+                <input type="text" placeholder="Type the word here..." id="inp-word" />
+                <button id="search-btn">Search</button>
+            </div>
+            <div id="result" class="result">
+                <!--
+                <div class="showResult">
+                    <h3 class="word">Word</h3>
+                    <div class="resultBox">
+                        <p class="defination"><b>Defination : </b> Lorem ipsum, dolor sit amet consectetur adipisicing
+                            elit. Necessitatibus, quam?</p>
+                        <p class="Examples"><b>Example : </b> Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                            Necessitatibus, quam?</p>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <script>
+        // https://api.dictionaryapi.dev/api/v2/entries/en/technology
+        let result = document.querySelector('#result')
+        document.querySelector('#search-btn').addEventListener('click', () => {
+            let word = document.querySelector('#inp-word').value
+            fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+                .then(res => res.json())
+                .then(res => {
+                    if (res.title) {
+                        let showError = document.createElement('h3')
+                        showError.innerText = res.title
+                        showError.classList.add('error')
+                        result.appendChild(showError)
+                    }
+                    else {
+                        result.innerHTML = ''
+                        let showResult = document.createElement('div')
+                        showResult.classList.add('showResult')
+                        result.appendChild(showResult)
+
+
+                        let word = document.createElement('h3')
+                        word.classList.add('word')
+                        word.innerText = res[0].word
+
+
+                        showResult.appendChild(word)
+                        res.forEach((result) => {
+                            result.meanings.forEach((meanings) => {
+                                meanings.definitions.forEach((defi)=>{
+                                    let resultBox = document.createElement('div')
+                                    resultBox.classList.add('resultBox')
+   
+                                    let defination = document.createElement('p')
+                                    defination.classList.add('defination')
+                                    defination.innerHTML = `<b>Defination : </b> ${defi.definition}`
+   
+                                    let example = document.createElement('p')
+                                    example.classList.add('Example')
+                                    example.innerHTML = `<b>Example : </b> ${defi.example}`
+
+
+                                    resultBox.appendChild(defination)
+                                    resultBox.appendChild(example)
+
+
+                                    let resultShow = document.querySelector('.showResult')
+                                    resultShow.appendChild(resultBox)
+                                })
+                            })
+
+
+                        })
+                        showResult.classList.add('showResult')
+                    }
+                })
+        })
+    </script>
+</body>
+
+
+</html>

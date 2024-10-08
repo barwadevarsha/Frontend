@@ -1,0 +1,199 @@
+
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Dictionary</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        *:not(i) {
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #ae9cff;
+        }
+
+        .wrapper {
+            width: 92vmin;
+            position: absolute;
+            transform: translateX(-50%);
+            top: 50px;
+            left: 50%;
+        }
+
+        .container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 80px 50px;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
+        }
+
+        a {
+            padding: 15px 0;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 5px;
+            color: #1f194c;
+            font-weight: 600;
+            box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
+            margin-top: 30px;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .search-box input {
+            padding: 5px;
+            width: 70%;
+            border: none;
+            outline: none;
+            border-bottom: 3px solid #ae9cff;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .search-box button {
+            padding: 15px 0;
+            width: 25%;
+            background-color: #ae9cff;
+            border: none;
+            outline: none;
+            color: #ffffff;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .result {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .result h3 {
+            font-size: 30px;
+            color: #1f194c;
+        }
+
+        .resultBox {
+            width: 80%;
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .resultBox img {
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+
+        .defination,
+        .Examples {
+            margin: 5px 0px;
+            color: #575a7b;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .search-box button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="search-box">
+                <input type="text" placeholder="Type the word here..." id="inp-word" />
+                <button id="search-btn">Search</button>
+            </div>
+            <div id="result" class="result"></div>
+        </div>
+    </div>
+    <script>
+        document.querySelector('#search-btn').addEventListener('click', () => {
+            let word = document.querySelector('#inp-word').value;
+            fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+                .then(res => res.json())
+                .then(res => {
+                    const result = document.querySelector('#result');
+                    result.innerHTML = '';
+
+                    if (res.title) {
+                        const showError = document.createElement('h3');
+                        showError.innerText = res.title;
+                        showError.classList.add('error');
+                        result.appendChild(showError);
+                    } else {
+                        const showResult = document.createElement('div');
+                        showResult.classList.add('showResult');
+                        result.appendChild(showResult);
+
+                        const wordHeader = document.createElement('h3');
+                        wordHeader.innerText = res[0].word;
+                        showResult.appendChild(wordHeader);
+
+                        res.forEach(entry => {
+                            entry.meanings.forEach(meanings => {
+                                meanings.definitions.forEach(defi => {
+                                    const resultBox = document.createElement('div');
+                                    resultBox.classList.add('resultBox');
+
+                                    const img = document.createElement('img');
+                                    img.src = 'https://via.placeholder.com/60'; // Placeholder image
+                                    img.alt = 'Image related to word';
+
+                                    const defination = document.createElement('p');
+                                    defination.classList.add('defination');
+                                    defination.innerHTML = `<b>Definition:</b> ${defi.definition}`;
+
+                                    const example = document.createElement('p');
+                                    example.classList.add('Examples');
+                                    example.innerHTML = `<b>Example:</b> ${defi.example ? defi.example : 'N/A'}`;
+
+                                    resultBox.appendChild(img);
+                                    resultBox.appendChild(defination);
+                                    resultBox.appendChild(example);
+
+                                    showResult.appendChild(resultBox);
+                                });
+                            });
+                        });
+                    }
+                });
+        });
+    </script>
+</body>
+
+</html>
+
+</body>
+</html>

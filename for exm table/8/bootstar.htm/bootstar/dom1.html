@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+        }
+
+
+        section {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            align-items: center;
+        }
+
+
+        .clock,
+        .box,
+        .date,
+        .days {
+            display: flex;
+            justify-content: center;
+        }
+
+
+        .date {
+            justify-content: end;
+            gap: 10px;
+        }
+
+
+        .box {
+            width: 100px;
+            height: 100px;
+            align-items: center;
+        }
+
+
+        h1 {
+            font-size: 50px;
+        }
+
+
+        .days {
+            justify-content: space-around;
+        }
+
+
+        .days .day {
+            color: gray;
+        }
+
+
+        .days .current_day {
+            color: red;
+        }
+    </style>
+</head>
+
+
+<body>
+    <section>
+        <div class="mainClockBox">
+            <div class="date">
+                <h4 id="date">00</h4>
+                <h4>-</h4>
+                <h4 id="month">Sept</h4>
+                <h4>-</h4>
+                <h4 id="year">2024</h4>
+            </div>
+            <div class="clock">
+                <div class="box">
+                    <h1 class="hr">00</h1>
+                </div>
+                <div class="box">
+                    <h1 class="dot">:</h1>
+                </div>
+                <div class="box">
+                    <h1 class="min">00</h1>
+                </div>
+                <div class="box">
+                    <h1 class="dot">:</h1>
+                </div>
+                <div class="box">
+                    <h1 class="sec">00</h1>
+                </div>
+            </div>
+            <div class="days">
+                <h5 class="day sun">Sun</h5>
+                <h5 class="day mon">Mon</h5>
+                <h5 class="day tue">Tue</h5>
+                <h5 class="day wed">Wed</h5>
+                <h5 class="day thu">Thu</h5>
+                <h5 class="day fri">Fri</h5>
+                <h5 class="day sat">Sat</h5>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        let month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        let day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+        let hr = document.querySelector('.hr')
+        let min = document.querySelector('.min')
+        let sec = document.querySelector('.sec')
+        let date = document.querySelector('#date')
+        let current_month = document.querySelector('#month')
+        let year = document.querySelector('#year')
+
+
+        setInterval(() => {
+            let currentDate = new Date()
+            hr.innerText = currentDate.getHours()
+            min.innerText = currentDate.getMinutes()
+            sec.innerText = currentDate.getSeconds()
+
+
+            // console.log(currentDate.getDate());
+            // console.log(currentDate.getMonth());
+            // console.log(month[currentDate.getMonth()]);
+            // console.log(currentDate.getDay());
+            // console.log(day[currentDate.getDay()]);
+
+
+            date.innerText = currentDate.getDate()
+            current_month.innerText = month[currentDate.getMonth()]
+            year.innerText = currentDate.getFullYear()
+
+
+            console.log(currentDate.getDay());
+
+
+            switch (currentDate.getDay()) {
+                case 0:
+                    document.querySelector('.sun').setAttribute('class', 'current_day')
+                    break;
+
+
+                case 1:
+                    document.querySelector('.mon').setAttribute('class', 'current_day')
+                    break;
+
+
+                case 2:
+                    document.querySelectorAll('.tue').setAttribute('class', 'current_day')
+                    break;
+
+
+                case 3:
+                    document.querySelectorAll('.wed').setAttribute('class', 'current_day')
+                    break;
+
+
+                case 4:
+                    document.querySelectorAll('.thu').setAttribute('class', 'current_day')
+                    break;
+
+
+                case 5:
+                    document.querySelectorAll('.fri').setAttribute('class', 'current_day')
+                    break;
+
+
+                case 6:
+                    document.querySelectorAll('.sat').setAttribute('class', 'current_day')
+                    break;
+            }
+        })
+    </script>
+</body>
+
+
+</html>

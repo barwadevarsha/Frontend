@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+<center>
+    <table>
+        <head>
+            <tr>ID</tr>
+            <tr>IMAGE</tr>
+            <tr>CATEGORY</tr>
+            <tr>PRICE</tr>
+            <tr>TITLE</tr>
+        </head>
+        
+    </table>
+</center>
+    <script>
+        
+        fetch('https://fakestoreapi.com/products')
+            .then(response => response.json())
+            .then(response => {
+                let tbody = document.querySelector('tbody')
+                response.forEach((items) => {
+                    console.log(items.image);
+                    tbody.innerHTML += `
+                    <tr>
+                        <td>${items.id}</td>
+                        <td>
+                            <img src="${items.image}">
+                        </td>
+                        <td>${items.category}</td>
+                        <td>${items.price}</td>
+                        <td>${items.title}</td>
+                    </tr>
+                    `
+                    // console.log(items.title);
+                });
+            })
+
+
+    </script>
+</body>
+</html>

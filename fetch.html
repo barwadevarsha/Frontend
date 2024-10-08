@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <center>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>IMAGE</th>
+                    <th>CATEGORY</th>
+                    <th>PRICE</th>
+                    <th>TITLE</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+    </center>
+    <script>
+        // https://fakestoreapi.com/products
+
+
+
+
+        // fetch('https://fakestoreapi.com/products')
+        //     .then(response => response.json())
+        //     .then(response => console.log(response))
+
+
+        fetch('https://fakestoreapi.com/products')
+            .then(response => response.json())
+            .then(response => {
+                let tbody = document.querySelector('tbody')
+                response.forEach((items) => {
+                    console.log(items);
+                    let cardContainer = document.querySelector(' .card-container');
+                    tbody.innerHTML += `
+                    <tr>
+                        <td>${items.id}</td>
+                        <td>
+                            <img src="${items.image}">
+                        </td>
+                        <td>${items.category}</td>
+                        <td>${items.price}</td>
+                        <td>${items.title}</td>
+                    </tr>
+                    `
+                    // console.log(items.title);
+                });
+            })
+
+
+    </script>
+</body>
+
+
+</html>

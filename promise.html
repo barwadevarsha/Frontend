@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <script>
+        let prom = new Promise((solve, reject) => {
+            setTimeout(() => {
+                if (true) {
+                    solve('Hii Im True')
+                } else {
+                    reject('Hii Im False')
+                }
+            }, 5000);
+        })
+        console.log(prom.then(() => {
+            fetch('https://fakestoreapi.com/products')
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response);
+                })
+
+
+            return new Promise((solve, reject) => {
+                setTimeout(() => {
+                    if (true) {
+                        solve('Hii Im True')
+                    } else {
+                        reject('Hii Im False')
+                    }
+                }, 5000);
+            }).then(() => {
+                fetch('https://fakestoreapi.com/products')
+                    .then(response => response.json())
+                    .then(response => {
+                        console.log(response);
+                    })
+            }).catch(() => {
+                alert('Hii Imm Alert from catch')
+            })
+        }).catch(() => {
+            alert('Hii Imm Alert from catch')
+        }));
+
+
+    </script>
+</body>
+
+
+</html>
